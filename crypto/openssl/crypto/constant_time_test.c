@@ -79,12 +79,12 @@ static int test_binary_op_8(unsigned
 {
     unsigned char c = op(a, b);
     if (is_true && c != CONSTTIME_TRUE_8) {
-        fprintf(stderr, "Test failed for %s(%du, %du): expected %u "
-                "(TRUE), got %u\n", op_name, a, b, CONSTTIME_TRUE_8, c);
+        fprintf(stderr, "Test failed for %s(%uu, %uu): expected %u "
+                "(TRUE), got %u\n", op_name, a, b, CONSTTIME_TRUE_8, (unsigned) c);
         return 1;
     } else if (!is_true && c != CONSTTIME_FALSE_8) {
-        fprintf(stderr, "Test failed for  %s(%du, %du): expected %u "
-                "(FALSE), got %u\n", op_name, a, b, CONSTTIME_FALSE_8, c);
+        fprintf(stderr, "Test failed for  %s(%uu, %uu): expected %u "
+                "(FALSE), got %u\n", op_name, a, b, CONSTTIME_FALSE_8, (unsigned) c);
         return 1;
     }
     return 0;
@@ -94,12 +94,12 @@ static int test_is_zero(unsigned int a)
 {
     unsigned int c = constant_time_is_zero(a);
     if (a == 0 && c != CONSTTIME_TRUE) {
-        fprintf(stderr, "Test failed for constant_time_is_zero(%du): "
-                "expected %du (TRUE), got %du\n", a, CONSTTIME_TRUE, c);
+        fprintf(stderr, "Test failed for constant_time_is_zero(%uu): "
+                "expected %uu (TRUE), got %uu\n", a, CONSTTIME_TRUE, c);
         return 1;
     } else if (a != 0 && c != CONSTTIME_FALSE) {
-        fprintf(stderr, "Test failed for constant_time_is_zero(%du): "
-                "expected %du (FALSE), got %du\n", a, CONSTTIME_FALSE, c);
+        fprintf(stderr, "Test failed for constant_time_is_zero(%uu): "
+                "expected %uu (FALSE), got %uu\n", a, CONSTTIME_FALSE, c);
         return 1;
     }
     return 0;
@@ -109,11 +109,11 @@ static int test_is_zero_8(unsigned int a)
 {
     unsigned char c = constant_time_is_zero_8(a);
     if (a == 0 && c != CONSTTIME_TRUE_8) {
-        fprintf(stderr, "Test failed for constant_time_is_zero(%du): "
+        fprintf(stderr, "Test failed for constant_time_is_zero(%uu): "
                 "expected %u (TRUE), got %u\n", a, CONSTTIME_TRUE_8, c);
         return 1;
     } else if (a != 0 && c != CONSTTIME_FALSE) {
-        fprintf(stderr, "Test failed for constant_time_is_zero(%du): "
+        fprintf(stderr, "Test failed for constant_time_is_zero(%uu): "
                 "expected %u (FALSE), got %u\n", a, CONSTTIME_FALSE_8, c);
         return 1;
     }
@@ -124,15 +124,15 @@ static int test_select(unsigned int a, unsigned int b)
 {
     unsigned int selected = constant_time_select(CONSTTIME_TRUE, a, b);
     if (selected != a) {
-        fprintf(stderr, "Test failed for constant_time_select(%du, %du,"
-                "%du): expected %du(first value), got %du\n",
+        fprintf(stderr, "Test failed for constant_time_select(%uu, %uu,"
+                "%uu): expected %uu(first value), got %uu\n",
                 CONSTTIME_TRUE, a, b, a, selected);
         return 1;
     }
     selected = constant_time_select(CONSTTIME_FALSE, a, b);
     if (selected != b) {
-        fprintf(stderr, "Test failed for constant_time_select(%du, %du,"
-                "%du): expected %du(second value), got %du\n",
+        fprintf(stderr, "Test failed for constant_time_select(%uu, %uu,"
+                "%uu): expected %uu(second value), got %uu\n",
                 CONSTTIME_FALSE, a, b, b, selected);
         return 1;
     }
@@ -162,14 +162,14 @@ static int test_select_int(int a, int b)
 {
     int selected = constant_time_select_int(CONSTTIME_TRUE, a, b);
     if (selected != a) {
-        fprintf(stderr, "Test failed for constant_time_select(%du, %d,"
+        fprintf(stderr, "Test failed for constant_time_select(%uu, %d,"
                 "%d): expected %d(first value), got %d\n",
                 CONSTTIME_TRUE, a, b, a, selected);
         return 1;
     }
     selected = constant_time_select_int(CONSTTIME_FALSE, a, b);
     if (selected != b) {
-        fprintf(stderr, "Test failed for constant_time_select(%du, %d,"
+        fprintf(stderr, "Test failed for constant_time_select(%uu, %d,"
                 "%d): expected %d(second value), got %d\n",
                 CONSTTIME_FALSE, a, b, b, selected);
         return 1;
@@ -182,11 +182,11 @@ static int test_eq_int(int a, int b)
     unsigned int equal = constant_time_eq_int(a, b);
     if (a == b && equal != CONSTTIME_TRUE) {
         fprintf(stderr, "Test failed for constant_time_eq_int(%d, %d): "
-                "expected %du(TRUE), got %du\n", a, b, CONSTTIME_TRUE, equal);
+                "expected %uu(TRUE), got %uu\n", a, b, CONSTTIME_TRUE, equal);
         return 1;
     } else if (a != b && equal != CONSTTIME_FALSE) {
         fprintf(stderr, "Test failed for constant_time_eq_int(%d, %d): "
-                "expected %du(FALSE), got %du\n",
+                "expected %uu(FALSE), got %uu\n",
                 a, b, CONSTTIME_FALSE, equal);
         return 1;
     }
